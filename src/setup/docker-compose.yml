@@ -3,10 +3,25 @@ services:
   airports:
     image: airports
     build: ../services/airports
-    ports:
-      - "8081:8080"
+    networks:
+      - airports
   countries:
     image: countries
     build: ../services/countries
+    networks:
+      - countries
+  haproxy:
+    image: haproxy
+    build: ../services/haproxy
     ports:
-      - "8080:8080"
+    - target: 80
+      published: 80
+      protocol: tcp
+      mode: host
+    networks:
+      - countries
+      - airports
+
+networks:
+  airports:
+  countries:
