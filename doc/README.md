@@ -59,4 +59,26 @@ This option can be run locally using Virtual Machines and be setup using automat
 
 When running the services multiple times, in combination with using a load-balancer, it is possible to bring up a new version of a service without causing a service interruption. An example of a load-balancer (and reverse-proxy) which supports this is HAProxy [http://www.haproxy.org/].
 
-### Option B: Containerization
+Having the upgrade performed automatically when a check-in is done on the repository, is possible with Octopus Deploy [https://octopus.com/], which works with any programming language and most cloud providers. It also works locally when an agent is installed on the development environment.
+
+### Option B: Containerization with Docker
+While the use of VirtualBox allows for creation of multiple virtual machines locally, it is time-consuming to keep these machines up-to-date and memory-consuming to run multiple instances of them.
+
+This is where Docker shines, simplifying the creation and running of instances or "containers" of code.
+
+### Option C: Containerization with Docker and Kubernetes
+Going one step further, we enhance our setup with the use of Kubernetes [https://kubernetes.io/]. Kubernetes is one of the better container orchastration systems, two other great options are OpenShift [https://www.openshift.com/] and Mesosphere [https://mesosphere.com/]. I like working with Kubernetes due to the fact that there is a lot of information available online and easy to setup.
+
+If you have Docker for Desktop (either Windows or Mac) installed, you can enable Kubernetes in the settings. After a short download, Kubernetes is running locally. It is as easy as that for developers!
+
+CI/CD with Kubernetes is also a lot less involved than with (virtual) machines, due to the expressiveness of the ```Dockerfile``` format and the availability of hosted platforms like the Docker Hub and Github integration, automating the creation of ```Docker Images```. As the following image shows, all that is needed after the creation of the Docker Image, is for the Kubernetes service to refresh the pods.
+
+<<< Insert image from >>>
+
+[https://thenewstack.io/ci-cd-with-kubernetes-tools-and-practices/]
+
+
+## Conclusions
+For this assessment, I have evaluated the requirements stated and different options for implementation. Going from option B (Containerization with Docker) into option C (Containerization with Docker and Kubernetes) is a logical advancement and makes filling the automated and interruption-free upgrade requirement less complex.
+
+What I still believe is missing from this solution, is a solid API versioning strategy. In this example, the upgraded version of the airports API brings some breaking changes: using ```/search/NL``` instead of ```/airports/NL```. Some examples of versioning strategies can be found here: https://www.xmatters.com/integrations/blog-four-rest-api-versioning-strategies/. All of the listed options are implementable using HAProxy (our choice of reverse-proxy / load-balancer).
