@@ -1,23 +1,19 @@
-version: "3.7"
+version: "3"
 services:
   airports:
-    image: airports
+    image: djbnjack/airports
     build: ../services/airports
     networks:
       - airports
   countries:
-    image: countries
+    image: djbnjack/countries
     build: ../services/countries
     networks:
       - countries
   haproxy:
-    image: haproxy
+    image: djbnjack/haproxy
     build: ../services/haproxy
-    ports:
-    - target: 80
-      published: 80
-      protocol: tcp
-      mode: host
+    ports: ["80:80"]
     networks:
       - countries
       - airports
