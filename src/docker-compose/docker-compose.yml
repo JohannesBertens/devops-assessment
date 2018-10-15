@@ -10,7 +10,7 @@ services:
       - countries
   haproxy:
     image: djbnjack/haproxy
-    ports: ["80:80"]
+    ports: ["8000:8000"]
     networks:
       - countries
       - airports

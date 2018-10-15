@@ -21,7 +21,12 @@ spec:
       - image: djbnjack/haproxy
         name: haproxy
         ports:
-        - containerPort: 80
+        - containerPort: 8000
         resources: {}
+        livenessProbe:
+          tcpSocket:
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
       restartPolicy: Always
 status: {}
