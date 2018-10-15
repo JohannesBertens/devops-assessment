@@ -2,17 +2,14 @@ version: "3"
 services:
   airports:
     image: djbnjack/airports
-    build: ../services/airports
     networks:
       - airports
   countries:
     image: djbnjack/countries
-    build: ../services/countries
     networks:
       - countries
   haproxy:
     image: djbnjack/haproxy
-    build: ../services/haproxy
     ports: ["80:80"]
     networks:
       - countries
